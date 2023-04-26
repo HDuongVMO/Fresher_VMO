@@ -37,6 +37,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var bip39 = require("bip39");
+var ed25519 = require("ed25519-hd-key");
+var TaquitoUtils = require("@taquito/utils");
+var signer_1 = require("@taquito/signer");
+var web3_js_1 = require("@solana/web3.js");
+var base58 = require("base58-js");
 var ethers_1 = require("ethers");
 var mnemonic = bip39.generateMnemonic(128);
 var index = 0;
@@ -62,46 +67,54 @@ var ethereumGenKey = function (mnemonic, index) { return __awaiter(void 0, void 
         }
     });
 }); };
-/*
-const solanaGenKey = async (mnemonic, index) => {
-  const derivePath = `m/44'/501'/${index}'/0'`;
-  const seed = await bip39.mnemonicToSeed(mnemonic);
-  const derivedSeed = ed25519.derivePath(derivePath, seed.toString("hex")).key;
-  const keypair = Keypair.fromSeed(derivedSeed);
-  const publicKey = keypair.publicKey.toString();
-
-  const address = publicKey;
-  const privateKey = base58.binary_to_base58(keypair.secretKey);
-  return {
-    address,
-    privateKey,
-  };
-};
-
-
-
-const tezosGenKey = async (mnemonic, index) => {
-  const TEZOS_BIP44_COINTYPE = 1729;
-  const derivePath = `m/44'/${TEZOS_BIP44_COINTYPE}'/${index}'/0'`;
-  const seed = bip39.mnemonicToSeedSync(mnemonic);
-  const { key } = ed25519.derivePath(derivePath, seed.toString("hex"));
-  const accPrivateKey = TaquitoUtils.b58cencode(
-    key.slice(0, 32),
-    TaquitoUtils.prefix.edsk2
-  );
-
-  const signer = await InMemorySigner.fromSecretKey(accPrivateKey);
-  const [accPublicKey, accPublicKeyHash] = await Promise.all([
-    signer.publicKey(),
-    signer.publicKeyHash(),
-  ]);
-  return {
-    privateKey: accPrivateKey,
-    publicKey: accPublicKey,
-    address: accPublicKeyHash,
-  };
-};
-*/
+var solanaGenKey = function (mnemonic, index) { return __awaiter(void 0, void 0, void 0, function () {
+    var derivePath, seed, derivedSeed, keypair, publicKey, address, privateKey;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                derivePath = "m/44'/501'/".concat(index, "'/0'");
+                return [4 /*yield*/, bip39.mnemonicToSeed(mnemonic)];
+            case 1:
+                seed = _a.sent();
+                derivedSeed = ed25519.derivePath(derivePath, seed.toString("hex")).key;
+                keypair = web3_js_1.Keypair.fromSeed(derivedSeed);
+                publicKey = keypair.publicKey.toString();
+                address = publicKey;
+                privateKey = base58.binary_to_base58(keypair.secretKey);
+                return [2 /*return*/, {
+                        address: address,
+                        privateKey: privateKey,
+                    }];
+        }
+    });
+}); };
+var tezosGenKey = function (mnemonic, index) { return __awaiter(void 0, void 0, void 0, function () {
+    var TEZOS_BIP44_COINTYPE, derivePath, seed, key, accPrivateKey, signer, _a, accPublicKey, accPublicKeyHash;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                TEZOS_BIP44_COINTYPE = 1729;
+                derivePath = "m/44'/".concat(TEZOS_BIP44_COINTYPE, "'/").concat(index, "'/0'");
+                seed = bip39.mnemonicToSeedSync(mnemonic);
+                key = ed25519.derivePath(derivePath, seed.toString("hex")).key;
+                accPrivateKey = TaquitoUtils.b58cencode(key.slice(0, 32), TaquitoUtils.prefix.edsk2);
+                return [4 /*yield*/, signer_1.InMemorySigner.fromSecretKey(accPrivateKey)];
+            case 1:
+                signer = _b.sent();
+                return [4 /*yield*/, Promise.all([
+                        signer.publicKey(),
+                        signer.publicKeyHash(),
+                    ])];
+            case 2:
+                _a = _b.sent(), accPublicKey = _a[0], accPublicKeyHash = _a[1];
+                return [2 /*return*/, {
+                        privateKey: accPrivateKey,
+                        publicKey: accPublicKey,
+                        address: accPublicKeyHash,
+                    }];
+        }
+    });
+}); };
 ethereumGenKey(mnemonic, index).then(console.log);
-//solanaGenKey(mnemonic, index).then(console.log);
-//tezosGenKey(mnemonic, index).then(console.log);
+solanaGenKey(mnemonic, index).then(console.log);
+tezosGenKey(mnemonic, index).then(console.log);
