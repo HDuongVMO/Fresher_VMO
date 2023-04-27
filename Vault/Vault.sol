@@ -12,10 +12,10 @@ contract Vault{
         _balances[msg.sender] += msg.value;
     }
 
-    function withDrawl(uint256 amount) public returns(bool) {
-        require(_balances[msg.sender] >= amount,"Invalid");
-        (bool success, ) = msg.sender.call{value: amount}("");
-        _balances[msg.sender] -= amount;
+    function withDrawl(uint256 _amount) public returns(bool) {
+        require(_balances[msg.sender] >= _amount,"Invalid");
+        (bool success, ) = msg.sender.call{value: _amount}("");
+        _balances[msg.sender] -= _amount;
         return success;
     }
 
@@ -23,25 +23,26 @@ contract Vault{
         return _balances[account];
     }
 
-    function transferVault(address _to, uint256 _amount) public {
-        require(_balances[msg.sender] > _amount, "Invalid");
-        _balances[msg.sender] -= _amount;
-        _balances[_to] += _amount;
+    function transferVault(address _to, uint256 _amount) public returns(bool) {
+    require(_balances[msg.sender] >= _amount, "Invalid");
+    _balances[msg.sender] -= _amount;
+    _balances[_to] += _amount;
+    return true;
     }
     
     mapping(address => mapping(address => uint256)) private _allowances;
 
-    function transferFromVault(address from, address to, uint256 amount) public returns (bool) {
-    require(_balances[from] >= amount, "Balance invalid");
-    require(_allowances[from][msg.sender] >= amount, "Allowance invalid");
-    _balances[from] -= amount;
-    _balances[to] += amount;
-    _allowances[from][msg.sender] -= amount;
+    function transferFromVault(address _from, address _to, uint256 _amount) public returns (bool) {
+    require(_balances[_from] >= _amount, "Balance invalid");
+    require(_allowances[_from][msg.sender] >= _amount, "Allowance invalid");
+    _balances[_from] -= _amount;
+    _balances[_to] += _amount;
+    _allowances[_from][msg.sender] -= _amount;
     return true;
     }
 
-    function approveVault(address spender, uint256 amount) public returns (bool) {
-    _allowances[msg.sender][spender] = amount;
+    function approveVault(address _spender, uint256 _amount) public returns (bool) {
+    _allowances[msg.sender][_spender] = _amount;
     return true;
     }
 }
