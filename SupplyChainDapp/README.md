@@ -5,5 +5,6 @@
 
 -----
 <h1 align="center">High level architecture</h1>
-<img src="public/Architecture.png"/>
+<img src="Architecture.png"/>
+
 -----
