@@ -2,6 +2,6 @@
 pragma solidity ^0.8.0;
 import "./Ownable.sol";
 
-contract MeatSupplyChain is Ownable {
+contract VaccineSupplyChain is Ownable {
     
 }

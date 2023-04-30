@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 import "./Ownable.sol";
 
-contract MeatSystemStorage is Ownable {
+contract VaccineSystemStorage is Ownable {
     mapping(address => uint) internal authorizedCaller;
 
     constructor() {
@@ -40,4 +40,12 @@ contract MeatSystemStorage is Ownable {
     }
 
     User userDetail;
+
+    function getUserRole(address _userAddress) public view returns(string memory) {
+        return userRole[_userAddress];
+    }
+
+    function getUserDetails(address _userAddress) public view returns(string memory name, string memory contact, string memory role, bool isActive, string memory profileHash) {
+
+    }
 }
