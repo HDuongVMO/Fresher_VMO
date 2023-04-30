@@ -45,7 +45,10 @@ contract VaccineSystemStorage is Ownable {
         return userRole[_userAddress];
     }
 
-    function getUserDetails(address _userAddress) public view returns(string memory name, string memory contact, string memory role, bool isActive, string memory profileHash) {
-
+    function getUserDetails(address _userAddress) public view returns(string memory _name, string memory _contact, string memory _role, bool _isActive, string memory _profileHash) {
+        User memory _user = userDetails[_userAddress];
+        return(_user.name, _user.contact, userRole[_userAddress], _user.isActive, _user.profileHash);
     }
+
+    function setUserDetails(address _userAddress, string memory _name, string memory _contact, bool _isActive, string memory _profileHash) public onlyAuthorizedCaller returns(){}
 }
