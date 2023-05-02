@@ -11,38 +11,23 @@ contract Multisender is Ownable {
         require ( _token != address(0), "ZERRO address");
         token = IERC20(_token);
     }
-
-    function senderSimilarAmount ( address[] memory _addresses, uint amount ) external onlyOwner { 
-        for ( uint i = 0; i < _addresses.length; i++) {
-            require(_addresses[i] != address(0), "zerro address!");
-            token.transferFrom(msg.sender, _addresses[i], amount);
-        }
-    }
-
-    function senderDifferentAnount ( address[] memory _addresses, uint[] memory amount ) external onlyOwner { 
+    function sendERC20TokendERC20Token ( address[] memory _addresses, uint[] memory amount ) external onlyOwner { 
         require ( _addresses.length == amount.length , " REJECTED" ); 
             for ( uint i = 0 ; i < amount.length; i++ ){ 
-                require(_addresses[i] != address(0), "zerro address!");
+                require(_addresses[i] != address(0), "zero address!");
                 token.transferFrom(msg.sender, _addresses[i], amount[i]); 
             }
     }
 
-    function sendMultiETH(
-        address payable[] memory listReceivers,
-        uint256[] memory listAmounts
-    ) public payable {
-        uint256 totalReceivers = listReceivers.length;
-        uint256 totalAmounts;
-        for (uint256 i = 0; i < totalReceivers; i++) {
-            totalAmounts += listAmounts[i];
-        }
-        require(msg.sender.balance >= totalAmounts, "Total balance not enough");
-        require(msg.value == totalAmounts, "Value not enough");
-        for (uint256 i = 0; i < totalReceivers; i++) {
-            (bool success, bytes memory data) = listReceivers[i].call{
-                value: listAmounts[i]
-            }("");
-            delete data;
+    mapping (address => uint256) _balances;
+
+    function deposit() external payable{
+        _balances[msg.sender] += msg.value;
+    }
+    function sendETH(address payable[] memory receivers, uint256[] memory amounts) public payable {
+        require(receivers.length == amounts.length, "Invalid input");
+        for (uint i = 0; i < receivers.length; i++) {
+            receivers[i].transfer(amounts[i]);
         }
     }
 
