@@ -1,13 +1,52 @@
-# Sample Hardhat Project
+- USER ROLE
+1. SUPER_ADMIN
+2. WAREHOUSE_MANAGER
+3. DISTRIBUTOR
+4. VACCINATION_STATION
+5. OBJECT_INJECTION
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+Process Related
+1. Basic Details
+    - producer name;
+    - quantity;
+    - optimum range temperature;
+    - optimum range humidity;
+2. Warehouser
+    - vaccine name;
+    - quantity;
+    - storage date;
+    - optimum range temperature;
+    - optimum range humidity;
+    - isViolation;
+3. Distributor
+    - destination address;
+    - shipping name;
+    - quantity;
+    - departure date dime;
+    - estimate date dime;
+    - is violation;
+    - optimum range temperature;
+    - optimum range humidity;
+4. Vaccination station
+    - quantity;
+    - arrival date time;
+    - vaccination station id;
+    - shipping name;
+    - shipping number;
+    - location address;
+5. Object Injection
+    - person name;
+    - age;
+    - identity card;
+    - number of vaccinations;
+    - vaccination date;
+    - type of vaccine;
+    - phone number;
+    
 
-Try running some of the following tasks:
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
-```
+ACTION
+ - WAREHOUSER
+ - DISTRIBUTOR
+ - VACCINATION_STATION
+ - OBJECT_INJECTION
