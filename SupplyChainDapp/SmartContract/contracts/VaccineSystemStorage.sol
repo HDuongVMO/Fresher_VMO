@@ -73,26 +73,15 @@ contract VaccineSystemStorage is Ownable {
         bool isViolation;
     }
 
-    struct vaccinationStation {
-        uint256 quantity;
-        uint256 arrivalDateTime;
-        uint256 vaccinationStationId;
-        string shippingName;
-        string shippingNumber;
-        string locationAddress;
-    }
-
     mapping(address => basicDetails) public batchBasicDetails;
     mapping(address => wareHouser) public batchWareHouser;
     mapping(address => distributor) public batchDistributor;
-    mapping(address => vaccinationStation) public batchVaccinationStation;
     mapping(address => string) public nextAction;
 
     User userDetail;
     basicDetails basicDetailsData;
     wareHouser wareHouserData;
     distributor distributorData;
-    vaccinationStation vaccinationStationData;
 
     function getNextAction(
         address _batchCode
@@ -242,110 +231,4 @@ contract VaccineSystemStorage is Ownable {
         nextAction[_batchCode] = "DISTRIBUTOR";
         return true;
     }
-
-    // DISTRIBUTOR
-    function getDistributor(
-        address _batchCode
-    )
-        public
-        view
-        returns (
-            string memory destinationAddress,
-            string memory shippingName,
-            uint256 quantity,
-            uint256 depatureDateTime,
-            uint256 estimateDateTime,
-            string memory optimumRangeTemp,
-            string memory optimumRangeHum,
-            bool isViolation
-        )
-    {
-        distributor memory _distributor = batchDistributor[_batchCode];
-        return (
-            _distributor.destinationAddress,
-            _distributor.shippingName,
-            _distributor.quantity,
-            _distributor.depatureDateTime,
-            _distributor.estimateDateTime,
-            _distributor.optimumRangeTemp,
-            _distributor.optimumRangeHum,
-            _distributor.isViolation
-        );
-    }
-
-    function setDistributor(
-        address _batchCode,
-        string memory _destinationAddress,
-        string memory _shippingName,
-        uint256 _quantity,
-        uint256 _depatureDateTime,
-        uint256 _estimateDateTime,
-        string memory _optimumRangeTemp,
-        string memory _optimumRangeHum,
-        bool _isViolation
-    ) public onlyAuthorizedCaller returns (bool) {
-        distributorData.destinationAddress = _destinationAddress;
-        distributorData.shippingName = _shippingName;
-        distributorData.quantity = _quantity;
-        distributorData.depatureDateTime = _depatureDateTime;
-        distributorData.estimateDateTime = _estimateDateTime;
-        distributorData.optimumRangeTemp = _optimumRangeTemp;
-        distributorData.optimumRangeHum = _optimumRangeHum;
-        distributorData.isViolation = _isViolation;
-        batchDistributor[_batchCode] = distributorData;
-
-        nextAction[_batchCode] = "VACCINATION_STATION";
-        return true;
-    }
-
-    // VACCINATION STATION
-    function getVaccinationStation(
-        address _batchCode
-    )
-        public
-        view
-        returns (
-            uint256 quantity,
-            uint256 arrivalDateTime,
-            uint256 vaccinationStationId,
-            string memory shippingName,
-            string memory shippingNumber,
-            string memory locationAddress
-        )
-    {
-        vaccinationStation memory _vaccinationStation = batchVaccinationStation[
-            _batchCode
-        ];
-        return (
-            _vaccinationStation.quantity,
-            _vaccinationStation.arrivalDateTime,
-            _vaccinationStation.vaccinationStationId,
-            _vaccinationStation.shippingName,
-            _vaccinationStation.shippingNumber,
-            _vaccinationStation.locationAddress
-        );
-    }
-
-    function setVaccinationStation(
-        address _batchCode,
-        uint256 _quantity,
-        uint256 _arrivalDateTime,
-        uint256 _vaccinationStationId,
-        string memory _shippingName,
-        string memory _shippingNumber,
-        string memory _locationAddress
-    ) public onlyAuthorizedCaller returns (bool) {
-        vaccinationStationData.quantity = _quantity;
-        vaccinationStationData.arrivalDateTime = _arrivalDateTime;
-        vaccinationStationData.vaccinationStationId = _vaccinationStationId;
-        vaccinationStationData.shippingName = _shippingName;
-        vaccinationStationData.shippingNumber = _shippingNumber;
-        vaccinationStationData.locationAddress = _locationAddress;
-        batchVaccinationStation[_batchCode] = vaccinationStationData;
-
-        nextAction[_batchCode] = "OBJECT_INJECTION";
-        return true;
-    }
-
-    // OBJECT INJECTION
 }
