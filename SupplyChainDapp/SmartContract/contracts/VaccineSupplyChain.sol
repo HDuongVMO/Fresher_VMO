@@ -159,7 +159,6 @@ contract VaccineSupplyChain is Ownable {
             string memory optimumRangeHum
         )
     {
-        /* Call Storage Contract */
         (
             destinationAddress,
             shippingName,
