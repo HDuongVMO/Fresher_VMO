@@ -1,22 +1,22 @@
 {
-  "name": "projectdapp",
+  "name": "smartcontract",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "compile": "hardhat compile",
-    "deploy": "hardhat run scripts/deploy.js --network",
+    "deploy": "hardhat run scripts/deploy.ts --network",
     "test": "hardhat test",
     "verify": "hardhat verify --network"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^1.0.2",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
     "@openzeppelin/contracts": "^4.8.3",
     "dotenv": "^16.0.3",
-    "hardhat": "^2.13.0",
     "ethers": "^5.7.0",
-    "web3": "^1.8.2"
+    "hardhat": "^2.14.0",
+    "web3": "^1.9.0"
   }
 }

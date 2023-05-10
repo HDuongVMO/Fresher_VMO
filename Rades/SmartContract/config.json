@@ -1,0 +1,8 @@
+{
+  "dev": {},
+  "mumbai": {
+    "RadesToken": "0x15D2e636E8B6113863D033cfb149916A37C482C0",
+    "RadesNFT": "0xd7F1Bc0317eadb6B32bC20684A3BBB9AAd7811c6"
+  },
+  "main": {}
+}

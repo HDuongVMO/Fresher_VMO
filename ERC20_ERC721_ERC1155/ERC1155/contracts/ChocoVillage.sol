@@ -17,7 +17,6 @@ contract ChocoVillage is ERC1155 {
         )
     {}
 
-    // If you do not have any village the contract will let you buy one
     function mintVillage() public {
         require(
             balanceOf(msg.sender, VILLAGE) == 0,
@@ -26,21 +25,18 @@ contract ChocoVillage is ERC1155 {
         _mint(msg.sender, VILLAGE, 1, "0x000");
     }
 
-    // If you do not have any Mine and have Village the contract will let you buy the Mine
     function mintMine() public {
         require(balanceOf(msg.sender, VILLAGE) > 0, "you need have a Village");
         require(balanceOf(msg.sender, MINE) == 0, "you already have a Mine");
         _mint(msg.sender, MINE, 1, "0x000");
     }
 
-    // If you do not have any Farm and have Village the contract will let you buy the Farm
     function mintFarm() public {
         require(balanceOf(msg.sender, VILLAGE) > 0, "you need have a Village");
         require(balanceOf(msg.sender, FARM) == 0, "you already have a Farm");
         _mint(msg.sender, FARM, 1, "0x000");
     }
 
-    // If you do not have any Mill and have Village and Farm the contract will let you buy the Mill
     function mintMill() public {
         require(balanceOf(msg.sender, VILLAGE) > 0, "you need have a Village");
         require(balanceOf(msg.sender, FARM) > 0, "you need have a Farm");
@@ -48,7 +44,6 @@ contract ChocoVillage is ERC1155 {
         _mint(msg.sender, MILL, 1, "0x000");
     }
 
-    // If you do not have any Castle and have all others NFt the contract will let you buy the Mill
     function mintCastle() public {
         require(balanceOf(msg.sender, MINE) > 0, "you need have a Mine");
         require(balanceOf(msg.sender, MILL) > 0, "you need have a Mill");
