@@ -1,8 +1,18 @@
 {
   "dev": {},
   "mumbai": {
-    "RadesToken": "0x15D2e636E8B6113863D033cfb149916A37C482C0",
-    "RadesNFT": "0xd7F1Bc0317eadb6B32bC20684A3BBB9AAd7811c6"
+    "RadesToken": "0x7B4D9Dcf70CaBD117Be1715E7Cb9c5840bC5e1bd",
+    "RadesNFT": "0x994e7635B70c426764f42C4495035755c9E423f9",
+    "RadesBid": "0xD7c25C6403f7AeE1f83f0333b95e672027E174Ad",
+    "RadesRare": "0x94B43C9BEEf072fff72B03462A91c721Be847a5F",
+    "RadesMarketplace": "0x838C3dC8a1CF73438909a65c8bd27B64D5d02E18"
   },
-  "main": {}
+  "main": {},
+  "local": {
+    "RadesToken": "0x73511669fd4dE447feD18BB79bAFeAC93aB7F31f",
+    "RadesNFT": "0xB581C9264f59BF0289fA76D61B2D0746dCE3C30D",
+    "RadesBid": "0xC469e7aE4aD962c30c7111dc580B4adbc7E914DD",
+    "RadesRare": "0x43ca3D2C94be00692D207C6A1e60D8B325c6f12f",
+    "RadesMarketplace": "0xb09da8a5B236fE0295A345035287e80bb0008290"
+  }
 }

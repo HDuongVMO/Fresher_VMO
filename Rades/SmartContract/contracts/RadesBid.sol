@@ -2,13 +2,13 @@
 pragma solidity ^0.8.0;
 
 contract RadesBid {
-    address private marketplace = address(0);
+    address private radesMarketplace = address(0);
     enum BidStatus{Pending, Accepted, Denied}
 
     uint256 _bidCounter;
 
     modifier isCalledMarketplace() {
-        require(marketplace == msg.sender, "Invalid") ;
+        require(radesMarketplace == msg.sender, "Invalid") ;
         _;
     }
 
@@ -31,12 +31,12 @@ contract RadesBid {
 
     mapping(uint256 => bid) private bidData;
     
-    function setMarketplaceToBid(address _marketplace) external {
-        require(_marketplace == address(0), "Invalid");
-        marketplace = _marketplace;
+    function setMarketplaceToBid(address _radesMarketplace) external {
+        require(radesMarketplace == address(0), "Invalid Bid");
+        radesMarketplace = _radesMarketplace;
     }
 
-    function place(uint256 _nftId, address _from, address _to, uint256 _amount, uint256 _price) external isCalledMarketplace {
+    function placeBid(uint256 _nftId, address _from, address _to, uint256 _amount, uint256 _price) external isCalledMarketplace {
         uint256 _newBidId = _bidCounter;
 
         bidData[_newBidId].bidId = _newBidId;
@@ -52,13 +52,13 @@ contract RadesBid {
         _bidCounter++;
     }
 
-    function accept(uint256 _bidId) external isValidBidId(_bidId) isCalledMarketplace {
+    function acceptBid(uint256 _bidId) external isValidBidId(_bidId) isCalledMarketplace {
         bidData[_bidId].status = BidStatus.Accepted;
         bidData[_bidId].checkedAt = block.timestamp;
     }
 
     function deniedBid(uint256 _bidId) external isValidBidId(_bidId) {
-        require(bidData[_bidId].from == msg.sender, "You can't deny this bid") ;
+        require(bidData[_bidId].from == msg.sender, "Invalid Bid Data") ;
 
         bidData[_bidId].status = BidStatus.Denied;
         bidData[_bidId].checkedAt = block.timestamp;
@@ -66,6 +66,49 @@ contract RadesBid {
 
     function findBid(uint256 _bidId) external isValidBidId(_bidId) view returns(bid memory) {
         return bidData[_bidId];
+    }
+
+    function fetchBidByOwners(address _owner) public view returns(bid[] memory) {
+        uint256 count = 0;
+        for(uint i = 0; i < _bidCounter; i++) {
+            if(bidData[i].from == _owner) {
+                count++;
+            }
+        }
+
+        bid[] memory _bids = new bid[](count);
+        count = 0;
+
+        for(uint i = 0; i < _bidCounter; i++) {
+            if(bidData[i].from == _owner) {
+                _bids[count] = _bids[i];
+                count++;
+            }
+        }
+
+        return _bids;
+    }
+
+    function fetchOrdersByBidder(address _bidder) external view returns(bid[] memory) {
+        uint256 count = 0 ;
+
+        for(uint256 i = 0 ; i < _bidCounter; i++) {
+            if(bidData[i].to == _bidder) {
+                count ++;
+            }
+        }
+
+        bid[] memory _bids = new bid[](count) ;
+        count = 0 ;
+
+        for(uint256 i = 0 ; i < _bidCounter; i++) {
+            if(bidData[i].to == _bidder) {
+                _bids[count] = bidData[i] ;
+                count++;
+            }
+        }
+
+        return _bids ;
     }
 
     function isPending(uint256 _bidId) external isValidBidId(_bidId) view returns(bool) {
