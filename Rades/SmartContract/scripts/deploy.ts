@@ -12,24 +12,33 @@ async function main() {
     console.log('RadesToken address: ', radesToken.address);
     Config.setConfig(network + '.RadesToken', radesToken.address);
 
+    const USDT = await ethers.getContractFactory("USDT");
+    const usdt = await USDT.deploy();
+    console.log('USDT address: ', usdt.address);
+    Config.setConfig(network + '.USDT', usdt.address);
+
     const RadesNFT = await ethers.getContractFactory("RadesNFT");
     const radesNFT = await RadesNFT.deploy();
     console.log('RadesNFT address: ', radesNFT.address);
     Config.setConfig(network + '.RadesNFT', radesNFT.address);
 
-    const RadesBid = await ethers.getContractFactory("RadesBid");
-    const radesBid = await RadesBid.deploy();
-    console.log('RadesBid address: ', radesBid.address);
-    Config.setConfig(network + '.RadesBid', radesBid.address);
+    const RadesVault = await ethers.getContractFactory("RadesVault");
+    const radesVault = await RadesVault.deploy();
+    console.log('RadesVault address: ', radesVault.address);
+    Config.setConfig(network + '.RadesVault', radesVault.address);
 
-    const RadesRare = await ethers.getContractFactory("RadesRare");
-    const radesRare = await RadesRare.deploy();
-    console.log('RadesRare address: ', radesRare.address);
-    Config.setConfig(network + '.RadesRare', radesRare.address);
+    const RadesAuction = await ethers.getContractFactory("RadesAuction");
+    const radesAuction = await RadesAuction.deploy(radesToken.address ,radesNFT.address);
+    console.log('RadesAuction address: ', radesAuction.address);
+    Config.setConfig(network + '.RadesAuction', radesAuction.address);
+
+    const RadesICO = await ethers.getContractFactory("RadesICO");
+    const radesICO = await RadesICO.deploy(1000, 100, "0xE3C3E2837f81814B20f1e6f80a21b88C00E3370a", radesToken.address);
+    console.log('RadesICO address: ', radesICO.address);
+    Config.setConfig(network + '.RadesICO', radesICO.address);
 
     const RadesMarketplace = await ethers.getContractFactory("RadesMarketplace");
-    const radesMarketplace = await RadesMarketplace.deploy(radesToken.address
-        ,radesBid.address,radesNFT.address,radesRare.address);
+    const radesMarketplace = await RadesMarketplace.deploy(radesToken.address ,radesNFT.address);
     console.log('RadesMarketplace address: ', radesMarketplace.address);
     Config.setConfig(network + '.RadesMarketplace', radesMarketplace.address);
 
