@@ -1,12 +1,16 @@
-import SidebarProvider from "@/view/Sidebar/SidebraContext";
+import SidebarProvider from "@/view/Sidebar/SidebarContext";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
+import { ChakraProvider } from "@chakra-ui/react";
+import theme from "../src/themes";
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <SidebarProvider>
+    <ChakraProvider theme={theme}>
+      <SidebarProvider>
       <Component {...pageProps} />
     </SidebarProvider>
+    </ChakraProvider>
   );
 }
 

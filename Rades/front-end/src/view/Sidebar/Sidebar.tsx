@@ -8,7 +8,7 @@ import {GrHomeRounded} from "react-icons/gr"
 import {HiOutlineShoppingCart} from "react-icons/hi"
 import {RiAuctionLine, RiCoinsLine} from "react-icons/ri"
 import {MdOutlineKeyboardArrowLeft} from "react-icons/md"
-import { SidebarContext } from "./SidebraContext";
+import { SidebarContext } from "./SidebarContext";
 
 const sidebarItems = [
   {

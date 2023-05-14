@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap");
 
 :root {
-  --color-bg: #fff;
+  --color-bg: #51507c;
   --color-border: #e5e7eb;
   --color-sidebar-item: #f3f4f6;
 }
@@ -13,7 +13,7 @@
 }
 
 body {
-  background-color: #eee;
+  
   font-family: "Roboto", sans-serif;
 }
 
@@ -22,6 +22,7 @@ body {
   height: 100vh;
   position: relative;
   gap: 2rem;
+  background-image: url(/background3.png);
 }
 
 .layout_main-content {
@@ -80,7 +81,7 @@ body {
 }
 
 .sidebar_link--active {
-  color: #fff;
+  color: #000;
   background-color: #10b981;
 }
 

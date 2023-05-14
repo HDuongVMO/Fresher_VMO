@@ -8,20 +8,20 @@ const config: ThemeConfig = {
 const Button: ComponentStyleConfig = {
   variants: {
     'primary': {
-      bg: '#fedf56',
+      bg: '#55638d',
       borderRadius: "8px",
-      color: "#6a5809",
+      color: "#eee",
       fontWeight: 'bold',      
       padding: "25px 30px",
-      border: "1px solid #fedf56",
+      border: "1px solid #55638d",
       fontSize: "15px",
     },  
     'outline': {      
       borderRadius: "5px",
-      color: "#fedf56",
+      color: "#55638d",
       fontWeight: 'bold',      
       padding: "12px 36px",
-      border: "1px solid rgba(254,223,86,.6) !important", 
+      border: "1px solid #55638d !important", 
     },   
   }
 }
