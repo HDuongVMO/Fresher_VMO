@@ -33,7 +33,7 @@ async function main() {
     Config.setConfig(network + '.RadesAuction', radesAuction.address);
 
     const RadesICO = await ethers.getContractFactory("RadesICO");
-    const radesICO = await RadesICO.deploy(1000, 100, "0xE3C3E2837f81814B20f1e6f80a21b88C00E3370a", radesToken.address);
+    const radesICO = await RadesICO.deploy(1000, 100, "0xE3C3E2837f81814B20f1e6f80a21b88C00E3370a", "0x8cA466eF834b9050e2E86d2AD124490f596f643f");
     console.log('RadesICO address: ', radesICO.address);
     Config.setConfig(network + '.RadesICO', radesICO.address);
 
