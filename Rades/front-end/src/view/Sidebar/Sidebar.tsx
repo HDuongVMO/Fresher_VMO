@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useContext, useState } from "react";
 import Link from "next/link";
 
-import Logo from "@/assets/menu/Logo.png";
+import Logo from "../../../public/Logo.png";
 import Dashboard from "@/assets/menu/Home.svg"
 import {GrHomeRounded} from "react-icons/gr"
 import {HiOutlineShoppingCart} from "react-icons/hi"

@@ -1,7 +1,9 @@
+import { Flex } from '@chakra-ui/react'
 import React from 'react'
 
 export default function MarketView() {
   return (
-    <div>MarketView</div>
+    <Flex w="full" >
+    </Flex>
   )
 }
