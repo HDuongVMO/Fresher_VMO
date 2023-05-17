@@ -18,6 +18,6 @@ export type AddressType  = {
   }
 
   export const SMART_ADDRESS = {
-    RADES_ICO: {80001: '0xd531Aa042f7a93be3e02f383DC9b9521147BE15b'},
+    RADES_ICO: {80001: '0x384f1b195C64eFDbc4CfeAd57c4aEfBc61b858A0'},
     USDT: {80001: '0xbdc740051c68E8720BF6D35B6Ef17e94c20C0E5E'}  
   }

@@ -1,4 +1,5 @@
 import Sidebar from '@/view/Sidebar/Sidebar';
+import { Flex } from '@chakra-ui/react';
 import React, { ReactNode } from 'react'
 
 interface Props {
@@ -7,8 +8,8 @@ interface Props {
 
 export default function BaseLayout({children}: Props) {
   return (
-    <div className='layout'>
+    <Flex className='layout'>
         <Sidebar />
-        {children}</div>
+        {children}</Flex>
   )
 }

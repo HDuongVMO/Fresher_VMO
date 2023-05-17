@@ -105,7 +105,7 @@ function InvestView() {
         isOpen={isOpen}
         onClose={onClose}
         hash={txHash}
-        title="BUY ICO"
+        title="THANK YOU!!"
       />
     </Flex>
   );
