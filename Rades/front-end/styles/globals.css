@@ -18,11 +18,13 @@ body {
 }
 
 .layout {
+  flex-direction: row;
   display: flex;
   height: 100vh;
   position: relative;
   gap: 2rem;
-  background-image: url(/background3.png);
+  /* background-image: url(/background3.png); */
+  background-color: #1c1c24;
 }
 
 .layout_main-content {

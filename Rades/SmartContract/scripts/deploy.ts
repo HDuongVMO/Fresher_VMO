@@ -17,30 +17,30 @@ async function main() {
     // console.log('USDT address: ', usdt.address);
     // Config.setConfig(network + '.USDT', usdt.address);
 
-    // const RadesNFT = await ethers.getContractFactory("RadesNFT");
-    // const radesNFT = await RadesNFT.deploy();
-    // console.log('RadesNFT address: ', radesNFT.address);
-    // Config.setConfig(network + '.RadesNFT', radesNFT.address);
+    const RadesNFT = await ethers.getContractFactory("RadesNFT");
+    const radesNFT = await RadesNFT.deploy("Rades", "RadesNFT", "https://gateway.pinata.cloud/ipfs/QmXcrUWCfDEC5eXwFTWGqipT51dgGJhq54DgJY3MfoQ3f9/");
+    console.log('RadesNFT address: ', radesNFT.address);
+    Config.setConfig(network + '.RadesNFT', radesNFT.address);
 
     // const RadesVault = await ethers.getContractFactory("RadesVault");
     // const radesVault = await RadesVault.deploy();
     // console.log('RadesVault address: ', radesVault.address);
     // Config.setConfig(network + '.RadesVault', radesVault.address);
 
-    // const RadesAuction = await ethers.getContractFactory("RadesAuction");
-    // const radesAuction = await RadesAuction.deploy(radesToken.address ,radesNFT.address);
-    // console.log('RadesAuction address: ', radesAuction.address);
-    // Config.setConfig(network + '.RadesAuction', radesAuction.address);
+    const RadesAuction = await ethers.getContractFactory("RadesAuction");
+    const radesAuction = await RadesAuction.deploy("0x8cA466eF834b9050e2E86d2AD124490f596f643f" ,radesNFT.address);
+    console.log('RadesAuction address: ', radesAuction.address);
+    Config.setConfig(network + '.RadesAuction', radesAuction.address);
 
-    const RadesICO = await ethers.getContractFactory("RadesICO");
-    const radesICO = await RadesICO.deploy(10000, 100, "0xE3C3E2837f81814B20f1e6f80a21b88C00E3370a", "0x8cA466eF834b9050e2E86d2AD124490f596f643f");
-    console.log('RadesICO address: ', radesICO.address);
-    Config.setConfig(network + '.RadesICO', radesICO.address);
+    // const RadesICO = await ethers.getContractFactory("RadesICO");
+    // const radesICO = await RadesICO.deploy(10000, 100, "0xE3C3E2837f81814B20f1e6f80a21b88C00E3370a", "0x8cA466eF834b9050e2E86d2AD124490f596f643f");
+    // console.log('RadesICO address: ', radesICO.address);
+    // Config.setConfig(network + '.RadesICO', radesICO.address);
 
-    // const RadesMarketplace = await ethers.getContractFactory("RadesMarketplace");
-    // const radesMarketplace = await RadesMarketplace.deploy(radesToken.address ,radesNFT.address);
-    // console.log('RadesMarketplace address: ', radesMarketplace.address);
-    // Config.setConfig(network + '.RadesMarketplace', radesMarketplace.address);
+    const RadesMarketplace = await ethers.getContractFactory("RadesMarketplace");
+    const radesMarketplace = await RadesMarketplace.deploy("0x8cA466eF834b9050e2E86d2AD124490f596f643f" ,radesNFT.address);
+    console.log('RadesMarketplace address: ', radesMarketplace.address);
+    Config.setConfig(network + '.RadesMarketplace', radesMarketplace.address);
 
     await Config.updateConfig();
 }

@@ -9,9 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const Home: NextPage = () => {
   return (
-    <BaseLayout>
       <InvestView />
-    </BaseLayout>
   );
 };
 

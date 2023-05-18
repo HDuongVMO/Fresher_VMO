@@ -1,6 +1,6 @@
 import { IPackage, IWalletInfo } from "@/_types_";
 import { numberFormat } from "@/utils";
-import { Box, Image, Text, Button, HStack, Spinner } from "@chakra-ui/react";
+import { Box, Image, Text, Button, HStack, Spinner, Spacer } from "@chakra-ui/react";
 import React from "react";
 
 interface IProps {
@@ -19,6 +19,7 @@ interface IProps {
     onBuy,
   }: IProps) {
     return (
+      
       <Box
         w="300px"
         h="300px"
@@ -31,6 +32,7 @@ interface IProps {
         display="flex"
         flexDirection="column"
       >
+        
         <Box
           bgImage={`/${pak.bg}`}
           w="full"

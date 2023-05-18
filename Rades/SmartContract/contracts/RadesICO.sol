@@ -95,4 +95,12 @@ contract RadesICO is Ownable {
     {
         return USDTAmount * USDT_rate;
     }
+    
+    function withdraw() public onlyOwner {
+        payable(msg.sender).transfer(address(this).balance);
+    }
+
+    function withdrawErc20() public onlyOwner {
+        usdtToken.transfer(msg.sender, usdtToken.balanceOf(address(this)));
+    }
 }

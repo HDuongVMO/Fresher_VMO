@@ -89,7 +89,8 @@ function InvestView() {
           <WalletInfo address={wallet?.address} amount={wallet?.matic || 0} />
         )}
       </Flex>
-      <SimpleGrid columns={{ base: 1, lg: 3 }} mt="50px" spacingY="20px">
+     
+      <SimpleGrid columns={{ base: 1, lg: 3 }} mt="40px" spacingY="20px" spacingX="50px">
         {packages.map((pk, index) => (
           <InvestCard
             pak={pk}
@@ -101,7 +102,7 @@ function InvestView() {
           />
         ))}
       </SimpleGrid>
-      <SuccessModal 
+      <SuccessModal
         isOpen={isOpen}
         onClose={onClose}
         hash={txHash}

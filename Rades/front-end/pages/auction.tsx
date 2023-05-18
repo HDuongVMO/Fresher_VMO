@@ -4,7 +4,6 @@ import React from 'react'
 
 export default function Auction() {
   return (
-    <BaseLayout>Auction
-    </BaseLayout>
+    <AuctionView />
   )
 }
