@@ -16,6 +16,15 @@ const Button: ComponentStyleConfig = {
       border: "1px solid #55638d",
       fontSize: "15px",
     },  
+    'secondary': {
+      bg: '#55638d',
+      borderRadius: "8px",
+      color: "#eee",
+      fontWeight: 'bold',      
+      padding: "10px 18px",
+      border: "1px solid #55638d",
+      fontSize: "12px",
+    },
     'outline': {      
       borderRadius: "5px",
       color: "#55638d",

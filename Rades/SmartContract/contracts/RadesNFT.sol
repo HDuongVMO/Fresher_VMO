@@ -12,7 +12,7 @@ contract RadesNFT is ERC721Enumerable, Ownable {
   string public baseExtension = ".json";
   uint256 public cost = 0.05 ether;
   uint256 public maxSupply = 10000;
-  uint256 public maxMintAmount = 30;
+  uint256 public maxMintAmount = 19;
   bool public paused = false;
   mapping(address => bool) public whitelisted;
 
@@ -22,7 +22,7 @@ contract RadesNFT is ERC721Enumerable, Ownable {
     string memory _initBaseURI
   ) ERC721(_name, _symbol) {
     setBaseURI(_initBaseURI);
-    mint(msg.sender, 30);
+    mint(msg.sender, 19);
   }
 
   // internal

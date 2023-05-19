@@ -80,16 +80,8 @@ function InvestView() {
     <Flex
       w="full"
       flexDirection="column"
-      margin="20px 20px auto"
+      margin=" 20px 20px 23px 30px"
     >
-      <Flex>
-        <Spacer />
-        {!wallet && <ConnectWallet onClick={onConnectMetamask} />}
-        {wallet && (
-          <WalletInfo address={wallet?.address} amount={wallet?.matic || 0} />
-        )}
-      </Flex>
-     
       <SimpleGrid columns={{ base: 1, lg: 3 }} mt="40px" spacingY="20px" spacingX="50px">
         {packages.map((pk, index) => (
           <InvestCard

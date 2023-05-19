@@ -19,11 +19,10 @@ body {
 
 .layout {
   flex-direction: row;
-  display: flex;
-  height: 100vh;
+  display: flex; 
+  height: 100% !important;
+  width: 100% !important;
   position: relative;
-  gap: 2rem;
-  /* background-image: url(/background3.png); */
   background-color: #1c1c24;
 }
 
@@ -41,7 +40,6 @@ body {
   background-color: var(--color-bg);
   padding: 1rem;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-  overflow: hidden;
 }
 
 .sidebar_top {
@@ -83,7 +81,7 @@ body {
   border-radius: 0.8rem;
 }
 
-.sidebar_link--active {
+.sidebar_link-active {
   color: #000;
   background-color: #10b981;
 }

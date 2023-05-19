@@ -22,7 +22,7 @@ interface IProps {
       
       <Box
         w="300px"
-        h="300px"
+        h="330px"
         bg="bg.secondary"
         borderRadius="16px"
         overflow="hidden"

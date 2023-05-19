@@ -22,7 +22,6 @@ interface IProps {
 
 export default function Nft({
   item,
-  index,
   isTransfer,
   isAuction,
   isList,
@@ -46,33 +45,23 @@ export default function Nft({
           objectFit="cover"
           borderRadius="10px"
         />
-        <Box position="absolute" top={5} right={10}>
-          <Text fontWeight="bold" fontSize="40px" fontStyle="italic">
-            {
-              Clarity[
-                Number(item.attributes?.find((p) => p.trait_type === "Rarity")
-                ?.value || 0)
-              ]
-            }
-          </Text>
-        </Box>
         <HStack bg="rgba(0,0,0,0.4)" position="absolute" top={5} px="10px">
           <Text>ID: {item.id.toString().padStart(5, "0")}</Text>
         </HStack>
       </Box>
-      <Text fontWeight="bold" py="10px">
+      <Text fontWeight="bold" py="10px" color="white">
         {item.name}
       </Text>
       {isList && isAuction && (
         <SimpleGrid w="full" columns={2} spacingX="10px">
           <Button
-            variant="primary"
+            variant="secondary"
             onClick={() => onAction && onAction("LIST")}
           >
             List
           </Button>
           <Button
-            variant="primary"
+            variant="secondary"
             onClick={() => onAction && onAction("AUCTION")}
           >
             Auction
@@ -81,7 +70,7 @@ export default function Nft({
       )}
       {isTransfer && (
         <Button
-          variant="primary"
+          variant="secondary"
           w="full"
           mt="10px"
           onClick={() => onAction && onAction("TRANSFER")}
