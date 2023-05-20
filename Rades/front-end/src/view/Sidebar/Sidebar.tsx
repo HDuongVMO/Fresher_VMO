@@ -11,14 +11,14 @@ import { SidebarContext } from "./SidebarContext";
 
 const sidebarItems = [
   {
-    name: "ICO",
+    name: "Market",
     href: "/",
-    icon: RiCoinsLine,
+    icon: HiOutlineShoppingCart,
   },
   {
-    name: "Market",
-    href: "../market",
-    icon: HiOutlineShoppingCart,
+    name: "ICO",
+    href: "../invests",
+    icon: RiCoinsLine,
   },
   {
     name: "Auction",

@@ -37,17 +37,7 @@ export interface INftItem {
   author?: string;  
 }
 
-export enum Clarity {
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "S",
-  "SS",
-  "SSS",
-}
-export type ActionType = "LIST" | "UNLIST" | "TRANSFER" | "AUCTION";
+export type ActionType = "LIST" | "UNLIST" | "AUCTION";
 
 export interface IAuctionInfo extends  INftItem {
   auctionId: number;

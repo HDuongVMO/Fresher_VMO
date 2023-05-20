@@ -45,12 +45,13 @@ export default function BaseLayout({ children }: IProps) {
     >
       <Sidebar />
       {children}
+      <Spacer />
       <Flex margin="20px">
         {!wallet && <ConnectWallet onClick={onConnectMetamask} />}
         {wallet && (
           <WalletInfo address={wallet?.address} amount={wallet?.matic || 0} />
         )}
-      </Flex>
+      S</Flex>
     </Flex>
   );
 }

@@ -6,8 +6,16 @@ import { getRadesNFTAbi } from "./utils/getAbis";
 import { getRadesNFTAddress } from "./utils/getAddress";
 
 export default class RadesNFT extends ERC721 {
-  constructor(provider: ethers.providers.Web3Provider) {
-    super(provider, getRadesNFTAddress(), getRadesNFTAbi());
+  constructor(provider?: ethers.providers.Web3Provider) {
+    const rpcProvider = new ethers.providers.JsonRpcProvider(getRPC());
+    super(provider || rpcProvider, getRadesNFTAddress(), getRadesNFTAbi());
+    if (!provider) {
+      this._contract = new ethers.Contract(
+        this._contractAddress,
+        this._abis,
+        rpcProvider
+      );
+    }
   }
 
   private _listTokenIds = async (address: string) => {
