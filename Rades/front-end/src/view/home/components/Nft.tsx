@@ -47,7 +47,7 @@ export default function Nft({
           <Text>ID: {item.id.toString().padStart(5, "0")}</Text>
         </HStack>
       </Box>
-      <Text fontWeight="bold" py="10px" color="white">
+      <Text fontWeight="bold" py="10px" color="white" fontSize="20px" textTransform="uppercase" letterSpacing="5px">
         {item.name}
       </Text>
       {isList && isAuction && (
@@ -70,7 +70,6 @@ export default function Nft({
         <Button
           variant="secondary"
           w="full"
-          mt="10px"
           onClick={() => onAction && onAction("UNLIST")}
         >
           UnList

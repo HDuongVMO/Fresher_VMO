@@ -30,19 +30,20 @@ import {
           bg="blackAlpha.300"
           backdropFilter="blur(10px)"
         />
-        <ModalContent py="30px">
-          <ModalCloseButton />
+       <ModalContent py="30px" bg="#1c1c28">
+          <ModalCloseButton color="rgba(255, 255, 255, 0.6)"/>
           <ModalBody>
             <Flex
               alignItems="center"
               justifyContent="center"
               w="full"
+              
               direction="column"
             >
-              <Text variant="notoSan" fontSize="20px">
+              <Text variant="notoSan" fontSize="20px" color="rgba(255, 255, 255, 0.6)">
                 {title}
               </Text>
-              <Text fontStyle="italic" fontSize="12px" mt="10px">
+              <Text fontStyle="italic" fontSize="12px" mt="10px" color="rgba(255, 255, 255, 0.6)">
                 (Your Transaction Successful!)
               </Text>
   
