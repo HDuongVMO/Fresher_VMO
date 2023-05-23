@@ -14,6 +14,7 @@ import {
   } from "@chakra-ui/react";
   import { INftItem } from "@/_types_";
   import React from "react";
+  import DatePicker from "react-datepicker";
   
   interface IProps extends Omit<ModalProps, "children"> {
     type: "LISTING" | "AUCTION";
@@ -81,7 +82,7 @@ import {
                   </Text>
                 </Flex>
   
-                {/* {type === "AUCTION" && (
+                {type === "AUCTION" && (
                   <>
                     <Text fontWeight="bold" mb="10px">
                       Expiration date:
@@ -105,9 +106,9 @@ import {
                       />
                     </Flex>
                   </>
-                )} */}
+                )}
                 <Button
-                  variant="primary"
+                  variant="secondary"
                   onClick={() => onList && onList(amount, startDate)}
                   disabled={!amount || isListing}
                 >

@@ -51,7 +51,7 @@ export default function BaseLayout({ children }: IProps) {
         {wallet && (
           <WalletInfo address={wallet?.address} amount={wallet?.matic || 0} />
         )}
-      S</Flex>
+      </Flex>
     </Flex>
   );
 }

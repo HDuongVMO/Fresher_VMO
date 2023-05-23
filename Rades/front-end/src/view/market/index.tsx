@@ -50,7 +50,7 @@ function MarketView() {
 
   return (
     <>
-      <SimpleGrid columns={4} spacing="20px" w="125%">
+      <SimpleGrid columns={4} spacing="20px" w="120%">
         {nfts.map((nft) => (
           <MarketNFT
             item={nft}
@@ -62,7 +62,7 @@ function MarketView() {
         ))}
       </SimpleGrid>
       <SuccessModal
-        title="BUY NFT"
+        title="THANK YOU!!"
         hash={txHash}
         isOpen={isOpen}
         onClose={onClose}
