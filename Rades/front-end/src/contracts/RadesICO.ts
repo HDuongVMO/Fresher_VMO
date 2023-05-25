@@ -5,7 +5,7 @@ import { getRPC } from "./utils/common";
 import { getRadesICOAbi } from "./utils/getAbis";
 import { getRadesICOAddress } from "./utils/getAddress";
 
-export default class RadesICOContract extends BaseInterface {
+export default class RadesICO extends BaseInterface {
   constructor(provider?: ethers.providers.Web3Provider) {
     const rpcProvider = new ethers.providers.JsonRpcProvider(getRPC());
     super(provider || rpcProvider, getRadesICOAddress(), getRadesICOAbi());

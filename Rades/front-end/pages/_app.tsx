@@ -6,6 +6,7 @@ import theme from "../src/themes";
 import { Provider } from "react-redux";
 import store from "@/reduxs/store";
 import BaseLayout from "@/layouts/BaseLayout";
+import "react-datepicker/dist/react-datepicker.css"
 
 function App({ Component, pageProps }: AppProps) {
   return (
