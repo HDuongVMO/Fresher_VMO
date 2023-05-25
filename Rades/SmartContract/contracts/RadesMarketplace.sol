@@ -22,11 +22,6 @@ contract RadesMarketplace is IERC721Receiver, Ownable {
     event ListNFT(address indexed _from, uint256 _tokenId, uint256 _price);
     event UnlistNFT(address indexed _from, uint256 _tokenId);
     event BuyNFT(address indexed _from, uint256 _tokenId, uint256 _price);
-    event UpdateListingNFTPrice(uint256 _tokenId, uint256 _price);
-    event SetToken(IERC20 _token);
-    event SetTax(uint256 _tax);
-
-    event SetNFT(IERC721Enumerable _nft);
 
     uint256 private tax = 10; // percentage
     mapping ( uint256 => ListDetail ) listDetail;
@@ -51,17 +46,14 @@ contract RadesMarketplace is IERC721Receiver, Ownable {
 
     function setTax(uint256 _tax) public onlyOwner {
         tax = _tax;
-        emit SetTax(_tax);
     }
 
     function setToken(IERC20 _token) public onlyOwner {
         token = _token;
-        emit SetToken(_token);
     }
 
     function setNft(IERC721Enumerable _nft) public onlyOwner {
         nft = _nft;
-        emit SetNFT(_nft);
     }
 
      function getListedNft() view public returns (ListDetail [] memory)  {
@@ -91,7 +83,6 @@ contract RadesMarketplace is IERC721Receiver, Ownable {
         require(listDetail[_tokenId].author == msg.sender, "Only owner can update price of this NFT");
 
         listDetail[_tokenId].price = _price;
-        emit UpdateListingNFTPrice(_tokenId, _price);
     }
 
     function unlistNft(uint256 _tokenId) public {

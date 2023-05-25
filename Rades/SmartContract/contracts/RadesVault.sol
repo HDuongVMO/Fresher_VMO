@@ -9,10 +9,6 @@ contract RadesVault {
         _balances[msg.sender] += msg.value;
     }
 
-    function deposit() external payable{
-        _balances[msg.sender] += msg.value;
-    }
-
     function withDrawl(uint256 amount) public returns(bool) {
         require(_balances[msg.sender] >= amount,"Invalid");
         (bool success, ) = msg.sender.call{value: amount}("");

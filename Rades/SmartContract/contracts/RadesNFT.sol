@@ -6,13 +6,11 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract RadesNFT is ERC721Enumerable, Ownable {
-  using Strings for uint256;
-
   string public baseURI;
   string public baseExtension = ".json";
   uint256 public cost = 0.05 ether;
   uint256 public maxSupply = 10000;
-  uint256 public maxMintAmount = 19;
+  uint256 public maxMintAmount = 100;
   bool public paused = false;
   mapping(address => bool) public whitelisted;
 
@@ -49,19 +47,6 @@ contract RadesNFT is ERC721Enumerable, Ownable {
     }
   }
 
-  function walletOfOwner(address _owner)
-    public
-    view
-    returns (uint256[] memory)
-  {
-    uint256 ownerTokenCount = balanceOf(_owner);
-    uint256[] memory tokenIds = new uint256[](ownerTokenCount);
-    for (uint256 i; i < ownerTokenCount; i++) {
-      tokenIds[i] = tokenOfOwnerByIndex(_owner, i);
-    }
-    return tokenIds;
-  }
-
   function tokenURI(uint256 tokenId)
     public
     view
@@ -91,22 +76,6 @@ contract RadesNFT is ERC721Enumerable, Ownable {
 
   function setBaseURI(string memory _newBaseURI) public onlyOwner {
     baseURI = _newBaseURI;
-  }
-
-  function setBaseExtension(string memory _newBaseExtension) public onlyOwner {
-    baseExtension = _newBaseExtension;
-  }
-
-  function pause(bool _state) public onlyOwner {
-    paused = _state;
-  }
- 
- function whitelistUser(address _user) public onlyOwner {
-    whitelisted[_user] = true;
-  }
- 
-  function removeWhitelistUser(address _user) public onlyOwner {
-    whitelisted[_user] = false;
   }
 
   function listTokenIds(address owner)external view returns (uint256[] memory tokenIds){
