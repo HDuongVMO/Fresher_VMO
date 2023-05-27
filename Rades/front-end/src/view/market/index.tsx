@@ -50,7 +50,7 @@ function MarketView() {
 
   return (
     <>
-      <SimpleGrid columns={4} spacing="20px" w="120%">
+      <SimpleGrid columns={4} spacing="20px" w="100%">
         {nfts.map((nft) => (
           <MarketNFT
             item={nft}

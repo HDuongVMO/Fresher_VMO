@@ -9,12 +9,13 @@ import BaseLayout from "@/layouts/BaseLayout";
 import "react-datepicker/dist/react-datepicker.css"
 
 function App({ Component, pageProps }: AppProps) {
+  const AnyComponent = Component as any;
   return (
     <Provider store={store}>
       <ChakraProvider theme={theme}>
         <SidebarProvider>
           <BaseLayout>
-            <Component {...pageProps} />
+            <AnyComponent {...pageProps} />
           </BaseLayout>
         </SidebarProvider>
       </ChakraProvider>

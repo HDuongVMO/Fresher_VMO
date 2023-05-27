@@ -42,8 +42,8 @@ export default function NftAuction({ item, isCancel, onAction }: IProps) {
           <Text>ID: {item.id.toString().padStart(5, "0")}</Text>
         </HStack>
       </Box>
-      <VStack w="full" alignItems="flex-start">
-        <Text fontWeight="bold" py="10px" fontSize="20px" textTransform="uppercase" letterSpacing="5px">
+      <VStack w="full" alignItems="center">
+        <Text fontWeight="bold"  fontSize="20px" textTransform="uppercase" letterSpacing="5px" color="rgba(255,255,255,0.8)">
           {item.name}
         </Text>
         <HStack w="full">

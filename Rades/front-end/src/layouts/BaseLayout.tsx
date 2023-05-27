@@ -1,10 +1,6 @@
 import Sidebar from "@/view/Sidebar/Sidebar";
 declare var window: any;
 import { ConnectWallet, WalletInfo } from "@/components";
-import {
-  setWalletInfo,
-  setWeb3Provider,
-} from "@/reduxs/accounts/account.slices";
 import { useAppDispatch, useAppSelector } from "@/reduxs/hooks";
 import { Box, Flex, Heading, Spacer, Text } from "@chakra-ui/react";
 import { ethers } from "ethers";
@@ -36,8 +32,6 @@ export default function BaseLayout({ children }: IProps) {
       const maticBalance = Number.parseFloat(
         ethers.utils.formatEther(bigBalance)
       );
-      dispatch(setWalletInfo({ address, matic: maticBalance }));
-      dispatch(setWeb3Provider(provider));
     }
   };
   return (
@@ -47,10 +41,12 @@ export default function BaseLayout({ children }: IProps) {
       {children}
       <Spacer />
       <Flex margin="20px">
-        {!wallet && <ConnectWallet onClick={onConnectMetamask} />}
-        {wallet && (
-          <WalletInfo address={wallet?.address} amount={wallet?.matic || 0} />
-        )}
+      {!wallet.address && (
+        <ConnectWallet display={{ base: "none", lg: "block" }} />
+      )}
+      {wallet.address && (
+        <WalletInfo display={{ base: "none", lg: "flex"}} />
+      )}
       </Flex>
     </Flex>
   );

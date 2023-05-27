@@ -23,7 +23,7 @@ const Button: ComponentStyleConfig = {
       fontWeight: 'bold',      
       padding: "10px 18px",
       border: "1px solid #55638d",
-      fontSize: "12px",
+      fontSize: "13px",
     },
     'outline': {      
       borderRadius: "5px",

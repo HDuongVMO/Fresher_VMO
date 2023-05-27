@@ -2,43 +2,56 @@
 
 pragma solidity ^0.8.0;
 
-contract RadesVault {
-    mapping (address => uint256) _balances;
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 
-    receive() external payable {
-        _balances[msg.sender] += msg.value;
+contract RadesVault is Ownable,AccessControlEnumerable {
+    IERC20 private token;
+    uint256 public maxWithdrawAmount=1000;
+    bool public withdrawEnable=true;
+    bytes32 public constant WITHDRAWER_ROLE = keccak256("WITHDRAWER_ROLE");
+    constructor(IERC20 _token) {
+        _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
+        token=_token;
     }
 
-    function withDrawl(uint256 amount) public returns(bool) {
-        require(_balances[msg.sender] >= amount,"Invalid");
-        (bool success, ) = msg.sender.call{value: amount}("");
-        _balances[msg.sender] -= amount;
-        return success;
+    function setToken(IERC20 _token) public onlyOwner {
+        token = _token;
+    }
+    function setWithdrawEnable(bool _isEnable) public onlyOwner {
+        withdrawEnable = _isEnable;
+    }
+    function setMaxWithdrawAmount(uint256 _maxAmount) public onlyOwner {
+        maxWithdrawAmount = _maxAmount;
     }
 
-    function balanceOf(address account) public view returns(uint256) {
-        return _balances[account];
+    function deposit(uint256 _amount) external {
+        require(!Address.isContract(msg.sender));
+        require(
+            token.balanceOf(msg.sender) >= _amount,
+            "Insufficient account balance"
+        );
+        SafeERC20.safeTransferFrom(token, msg.sender, address(this), _amount);
     }
 
-    function transferVault(address _to, uint256 _amount) public {
-        require(_balances[msg.sender] > _amount, "Invalid");
-        _balances[msg.sender] -= _amount;
-        _balances[_to] += _amount;
-    }
-    
-    mapping(address => mapping(address => uint256)) private _allowances;
-
-    function transferFromVault(address from, address to, uint256 amount) public returns (bool) {
-    require(_balances[from] >= amount, "Balance invalid");
-    require(_allowances[from][msg.sender] >= amount, "Allowance invalid");
-    _balances[from] -= amount;
-    _balances[to] += amount;
-    _allowances[from][msg.sender] -= amount;
-    return true;
+    function withdraw(
+        uint256 _amount,
+        address _to
+    ) external onlyWithdrawer {
+        require(!Address.isContract(msg.sender));
+        require(withdrawEnable,"Withdraw is not available");
+        require(_amount<=maxWithdrawAmount,"Exceed maximum amount");
+        token.transfer(_to, _amount);
     }
 
-    function approveVault(address spender, uint256 amount) public returns (bool) {
-    _allowances[msg.sender][spender] = amount;
-    return true;
+    function emergencyWithdraw() public onlyOwner {
+        token.transfer(msg.sender, token.balanceOf(address(this)));
+    }
+
+    modifier onlyWithdrawer() {
+        require(owner() == _msgSender()||hasRole(WITHDRAWER_ROLE,_msgSender()), "Caller is not a withdrawer");
+        _;
     }
 }

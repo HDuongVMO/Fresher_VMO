@@ -51,7 +51,7 @@ export default function AuctionView() {
   }
 
   return (
-    <Flex w="120%">
+    <Flex w="100%">
       <SimpleGrid columns={4} spacing="20px">
         {nfts.map((nft) => (
           <NftAuction item={nft} key={nft.id} onAction={() => {

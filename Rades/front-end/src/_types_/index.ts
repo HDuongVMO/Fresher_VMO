@@ -1,6 +1,9 @@
 export interface IWalletInfo {
+  radtBalance: number;
+  maticBalance: number;
   address: string;
-  matic: number;
+  maticRate: number;
+  usdtRate: number;
 }
 
 export interface IRate {
@@ -9,6 +12,7 @@ export interface IRate {
 }
 
 export enum TOKEN {
+  RADT = "RADT",
   MATIC = 'MATIC',
   USDT = 'USDT'
 }

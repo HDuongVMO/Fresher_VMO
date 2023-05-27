@@ -44,7 +44,7 @@ import {
                 mb="20px"
               />
               <Flex w="full" direction="column">
-                <Text fontSize="12px" fontStyle="italic" color="rgba(255,255,255,0.5)">Set your bid:</Text>
+                <Text fontSize="12px" fontStyle="italic" color="rgba(255,255,255,0.6)">Set your bid:</Text>
                 <Flex w="full" my="10px">
                   <Input w="full" value={amount} onChange={(e) => setAmount(Number(e.target.value))} type="number" />
                   <Text fontWeight="bold" fontSize="24px" position="absolute" right="40px" color="rgba(255,255,255, 0.4)">RADT</Text>

@@ -23,7 +23,7 @@ async function main() {
     Config.setConfig(network + '.RadesNFT', radesNFT.address);
 
     const RadesVault = await ethers.getContractFactory("RadesVault");
-    const radesVault = await RadesVault.deploy();
+    const radesVault = await RadesVault.deploy("0x8cA466eF834b9050e2E86d2AD124490f596f643f");
     console.log('RadesVault address: ', radesVault.address);
     Config.setConfig(network + '.RadesVault', radesVault.address);
 
@@ -41,6 +41,11 @@ async function main() {
     const radesMarketplace = await RadesMarketplace.deploy("0x8cA466eF834b9050e2E86d2AD124490f596f643f" ,radesNFT.address);
     console.log('RadesMarketplace address: ', radesMarketplace.address);
     Config.setConfig(network + '.RadesMarketplace', radesMarketplace.address);
+
+    const RadesStaking = await ethers.getContractFactory("RadesStaking");
+    const radesStaking = await RadesStaking.deploy("0x8cA466eF834b9050e2E86d2AD124490f596f643f");
+    console.log('ImpetusCrowdSale address: ', radesStaking.address);
+    Config.setConfig(network + '.RadesStaking', radesStaking.address);
 
     await Config.updateConfig();
 }

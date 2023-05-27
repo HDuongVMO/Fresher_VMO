@@ -4,10 +4,11 @@ import Link from "next/link";
 
 import Logo from "../../../public/Logo.png";
 import {GrHomeRounded} from "react-icons/gr"
-import {HiOutlineShoppingCart} from "react-icons/hi"
+import {HiOutlineShoppingCart, } from "react-icons/hi"
 import {RiAuctionLine, RiCoinsLine} from "react-icons/ri"
 import {MdOutlineKeyboardArrowLeft} from "react-icons/md"
 import { SidebarContext } from "./SidebarContext";
+import {HiOutlineBanknotes} from "react-icons/hi2";
 
 const sidebarItems = [
   {
@@ -26,11 +27,15 @@ const sidebarItems = [
     icon: RiAuctionLine,
   },
   {
+    name: "Staking",
+    href: "../staking",
+    icon: HiOutlineBanknotes,
+  },
+  {
     name: "Home",
     href: "../home",
     icon: GrHomeRounded,
   },
-
 ]
 
 export default function Sidebar() {

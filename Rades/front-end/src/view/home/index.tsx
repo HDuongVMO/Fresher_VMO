@@ -155,7 +155,7 @@ export default function HomeView() {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <SimpleGrid w="130%" columns={4} spacing={10}>
+            <SimpleGrid w="100%" columns={4} spacing={10}>
               {nfts.map((nft, index) => (
                 <Nft
                   item={nft}
@@ -170,7 +170,7 @@ export default function HomeView() {
           </TabPanel>
 
           <TabPanel>
-            <SimpleGrid w="130%" columns={4} spacing={10}>
+            <SimpleGrid w="100%" columns={4} spacing={10}>
               {nftsListed.map((nft, index) => (
                 <Nft
                   item={nft}
@@ -184,7 +184,7 @@ export default function HomeView() {
           </TabPanel>
 
           <TabPanel>
-            <SimpleGrid w="130%" columns={4} spacing={10}>
+            <SimpleGrid w="100%" columns={4} spacing={10}>
               {auctions.map((nft, index) => (
                 <NftAuction
                   item={nft}

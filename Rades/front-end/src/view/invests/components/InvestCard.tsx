@@ -1,25 +1,19 @@
 import { IPackage, IWalletInfo } from "@/_types_";
+import { useAppSelector } from "@/reduxs/hooks";
 import { numberFormat } from "@/utils";
 import { Box, Image, Text, Button, HStack, Spinner, Spacer } from "@chakra-ui/react";
-import React from "react";
+import React, { memo } from "react";
 
 interface IProps {
-    pak: IPackage;
-    isBuying: boolean;
-    rate: number;
-    walletInfo?: IWalletInfo;
-    onBuy?: () => void;
-  }
+  pak: IPackage;
+  rate: number;
+  isBuying: boolean;
+  onBuy?: () => void;
+}
 
-  export default function InvestCard({
-    pak,
-    isBuying,
-    rate,
-    walletInfo,
-    onBuy,
-  }: IProps) {
+const InvestCard = ({ pak, rate = 1, isBuying, onBuy }: IProps) => {
+  const { wallet } = useAppSelector((state) => state.account);
     return (
-      
       <Box
         w="300px"
         h="330px"
@@ -86,9 +80,11 @@ interface IProps {
           {numberFormat(pak.amount / rate)} {pak.token}
         </Text>
       </HStack>
-      <Button w="full" variant="primary" disabled={!walletInfo?.address || isBuying} onClick={onBuy}>
+      <Button w="full" variant="primary" disabled={!wallet?.address || isBuying} onClick={onBuy}>
         {isBuying ? <Spinner /> : 'Buy Now'}        
       </Button>
       </Box>
     );
   }
+
+  export default memo(InvestCard);
