@@ -5,6 +5,7 @@ import { RootState } from "../store";
 import RadesICO from "@/contracts/RadesICO";
 import UsdtContract from "@/contracts/USDT";
 import RadesToken from "@/contracts/RadesToken";
+import RadesStake, { IStakeInfo } from "@/contracts/RadesStake";
 
 export const setProvider = createAction<ethers.providers.Web3Provider>(
   "account/setProvider"
@@ -24,6 +25,7 @@ export interface AccountState {
     key: string,
     errMsg: string;
   },
+  stakeInfo?: IStakeInfo;
 }
 
 const initialState: AccountState = {
@@ -83,11 +85,20 @@ export const buyICOAction = createAsyncThunk<string, IPackage, {
   }
 );
 
+export const getStakeInfoAction = createAsyncThunk<IStakeInfo>("account/getStakeInfo",
+  async () => {
+      const radesStake = new RadesStake();
+      const info  = await radesStake.getStakeInfo();
+      return info;
+  }
+);
+
 export const accountReducer = createReducer(initialState, (builder) => {
   builder.addCase(setProvider, (state, { payload }) => {
     state.web3Provider  = payload;    
   }); 
 
+  //generate contract
   builder.addCase(generateContract.fulfilled, (state, {payload}) => {
       state.wallet = payload;
   });
@@ -96,6 +107,7 @@ export const accountReducer = createReducer(initialState, (builder) => {
     state.convert = {...state.convert, isLoading: false, errorMsg: error.message || "Error"}
   });
 
+  //buy ico
   builder.addCase(buyICOAction.pending, (state, {meta}) => {    
     const {arg} = meta;
     state.buyICO = {...state.buyICO, isProcessing: true, has: '', key: arg.key};
@@ -105,6 +117,11 @@ export const accountReducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(buyICOAction.fulfilled, (state, {payload}) => {
     state.buyICO= {...state.buyICO, isProcessing: false, errMsg: '', has: payload};
+  });
+
+  //staking
+  builder.addCase(getStakeInfoAction.fulfilled, (state, {payload})  => {
+    state.stakeInfo = payload;
   });
 })
 

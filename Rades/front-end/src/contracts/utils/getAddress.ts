@@ -11,3 +11,5 @@ export const getRadesNFTAddress = () => getAddress(SMART_ADDRESS.RADES_NFT);
 export const getRadesMarketplaceAddress = () => getAddress(SMART_ADDRESS.RADES_MARKETPLACE);
 export const getRadesTokenAddress = () => getAddress(SMART_ADDRESS.RADES_TOKEN);
 export const getRadesAuctionAddress = () => getAddress(SMART_ADDRESS.RADES_AUCTION);
+export const getRadesStakeAddress = () => getAddress(SMART_ADDRESS.RADES_STAKE);
+export const getRadesVaultAddress = () => getAddress(SMART_ADDRESS.RADES_VAULT);

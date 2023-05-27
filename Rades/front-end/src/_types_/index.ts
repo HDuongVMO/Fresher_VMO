@@ -56,3 +56,14 @@ export interface IAuctionInfo extends  INftItem {
   completed: boolean;
   active: boolean;
 }
+
+export interface IStakerInfo {
+  index: number;
+  amount: number;
+  releaseDate: number;
+  isRelease: boolean;
+  rewardDebt: number;
+  termOption: "14" | "30";
+  days: string;
+  isLock: boolean;
+}

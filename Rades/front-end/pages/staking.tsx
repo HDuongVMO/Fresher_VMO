@@ -5,10 +5,6 @@ import React from 'react'
 
 export default function Auction() {
   return (
-    <Flex w="full" direction="column" margin="15px">
-      <Heading color="#55638d">Staking</Heading>
-      <Divider my="10px" />
-      <StakingView />
-     </Flex>
+    <StakingView />
   )
 }
