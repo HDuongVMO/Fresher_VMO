@@ -7,5 +7,5 @@ export default function ConnectWallet({...props}: IProps) {
     const handleConnect = async () => { await connectToMetamask();}
     return <Button variant='secondary' onClick={handleConnect}{...props} >
     Connect Wallet
-  </Button>;
+  </Button>
 }

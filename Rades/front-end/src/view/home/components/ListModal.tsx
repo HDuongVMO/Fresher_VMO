@@ -15,6 +15,8 @@ import {
   import { INftItem } from "@/_types_";
   import React from "react";
   import DatePicker from "react-datepicker";
+import { NUMBER_PATTERN } from "@/constants";
+import { numberFormat } from "@/utils";
   
   interface IProps extends Omit<ModalProps, "children"> {
     type: "LISTING" | "AUCTION";
@@ -67,9 +69,13 @@ import {
                   <Input
                     w="full"
                     color="rgba(255,255,255, 0.6)"
-                    value={amount}
-                    onChange={(e) => setAmount(Number(e.target.value))}
-                    type="number"
+                    value={numberFormat(amount)}
+                    pattern={NUMBER_PATTERN}
+                      onChange={(e) => {
+                        const v = e.target.value.split(',').join('');
+                        setAmount( v ? parseFloat(v) : 0);
+                      }}
+                      type="text"
                   />
                   <Text
                     fontWeight="bold"

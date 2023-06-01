@@ -26,7 +26,7 @@ const WalletInfo = ({ ...props }: IProps) => {
       <Menu>
         {({ isOpen }) => (
           <>
-            <MenuButton isActive={isOpen} as={Button} bgColor="bg.primary">
+            <MenuButton isActive={isOpen} as={Button} >
               {showSortAddress(wallet.address)}
             </MenuButton>
             <MenuList>

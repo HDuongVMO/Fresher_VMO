@@ -44,3 +44,5 @@ export const packages: IPackage[] = [
     token: TOKEN.USDT,
   }
 ]
+
+export const NUMBER_PATTERN = '/^[0-9]*\.?[0-9]*$/';
