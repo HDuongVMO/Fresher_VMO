@@ -1,0 +1,68 @@
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+import java.io.IOException;
+
+public class ElectricityConsumption {
+    
+    // Mapper Class
+    public static class ElectricityMapper extends Mapper<Object, Text, Text, IntWritable> {
+        private Text year = new Text();
+        private IntWritable avgConsumption = new IntWritable();
+
+        @Override
+        protected void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+            // Tách các trường từ dòng dữ liệu (giả định phân tách bằng khoảng trắng)
+            String[] fields = value.toString().split("\\s+");
+            if (fields.length == 14) {  // Có 14 trường (12 tháng + năm + giá trị trung bình)
+                year.set(fields[0]);  // Trường đầu tiên là năm
+                avgConsumption.set(Integer.parseInt(fields[13]));  // Trường cuối cùng là mức tiêu thụ trung bình
+                context.write(year, avgConsumption);  // Ghi ra cặp key-value
+            }
+        }
+    }
+
+    // Reducer Class
+    public static class ElectricityReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+        private static final int MAX_CONSUMPTION = 30;
+
+        @Override
+        protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+            for (IntWritable value : values) {
+                if (value.get() > MAX_CONSUMPTION) {
+                    context.write(key, value);  // Ghi ra năm và mức tiêu thụ nếu lớn hơn 30
+                }
+            }
+        }
+    }
+
+    // Main method
+    public static void main(String[] args) throws Exception {
+        if (args.length != 2) {
+            System.err.println("Usage: ElectricityConsumption <input path> <output path>");
+            System.exit(-1);
+        }
+
+        Configuration conf = new Configuration();
+        Job job = Job.getInstance(conf, "Electricity Consumption");
+        job.setJarByClass(ElectricityConsumption.class);
+
+        job.setMapperClass(ElectricityMapper.class);
+        job.setReducerClass(ElectricityReducer.class);
+
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
+
+        FileInputFormat.addInputPath(job, new Path(args[0]));
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+}
