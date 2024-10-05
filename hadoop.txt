@@ -10,56 +10,52 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
 
-public class ElectricityConsumption {
-    
-    // Mapper Class
-    public static class ElectricityMapper extends Mapper<Object, Text, Text, IntWritable> {
-        private Text year = new Text();
-        private IntWritable avgConsumption = new IntWritable();
+public class SalesCount {
 
-        @Override
-        protected void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-            // Tách các trường từ dòng dữ liệu (giả định phân tách bằng khoảng trắng)
-            String[] fields = value.toString().split("\\s+");
-            if (fields.length == 14) {  // Có 14 trường (12 tháng + năm + giá trị trung bình)
-                year.set(fields[0]);  // Trường đầu tiên là năm
-                avgConsumption.set(Integer.parseInt(fields[13]));  // Trường cuối cùng là mức tiêu thụ trung bình
-                context.write(year, avgConsumption);  // Ghi ra cặp key-value
+    // Mapper Class
+    public static class SalesMapper extends Mapper<Object, Text, Text, IntWritable> {
+        private final static IntWritable one = new IntWritable(1);
+        private Text country = new Text();
+
+        public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+            String[] fields = value.toString().split(","); // Phân tách các trường bằng dấu phẩy
+
+            // Đảm bảo rằng có đủ trường dữ liệu
+            if (fields.length > 7) {
+                country.set(fields[7].trim()); // Lấy quốc gia từ trường thứ 7
+                context.write(country, one); // Ghi ra cặp key-value
             }
         }
     }
 
     // Reducer Class
-    public static class ElectricityReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
-        private static final int MAX_CONSUMPTION = 30;
+    public static class SalesReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+        private IntWritable result = new IntWritable();
 
-        @Override
-        protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
-            for (IntWritable value : values) {
-                if (value.get() > MAX_CONSUMPTION) {
-                    context.write(key, value);  // Ghi ra năm và mức tiêu thụ nếu lớn hơn 30
-                }
+        public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+            int sum = 0;
+
+            for (IntWritable val : values) {
+                sum += val.get(); // Tổng hợp số lượng giao dịch
             }
+
+            result.set(sum);
+            context.write(key, result); // Ghi ra cặp key-value (quốc gia, số lượng giao dịch)
         }
     }
 
-    // Main method
+    // Driver Class
     public static void main(String[] args) throws Exception {
-        if (args.length != 2) {
-            System.err.println("Usage: ElectricityConsumption <input path> <output path>");
-            System.exit(-1);
-        }
-
         Configuration conf = new Configuration();
-        Job job = Job.getInstance(conf, "Electricity Consumption");
-        job.setJarByClass(ElectricityConsumption.class);
-
-        job.setMapperClass(ElectricityMapper.class);
-        job.setReducerClass(ElectricityReducer.class);
-
+        Job job = Job.getInstance(conf, "Sales Count by Country");
+        job.setJarByClass(SalesCount.class);
+        job.setMapperClass(SalesMapper.class);
+        job.setCombinerClass(SalesReducer.class); // Optional: sử dụng Combiner để giảm lưu lượng
+        job.setReducerClass(SalesReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 
+        // Đọc dữ liệu từ file CSV
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
